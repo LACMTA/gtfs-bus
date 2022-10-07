@@ -1,0 +1,8 @@
+.dat
+agency.txt.gpg
+agency.txt.asc
+*.csv
+venv
+.DS_Store
+scratch
+output
