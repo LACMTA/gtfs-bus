@@ -19,7 +19,7 @@ jobs:
         owner: 'lacmta'
         repository: 'gtfs_bus'
     - name: Download GTFS Validator
-      run: curl "https://lacmta.github.io/gtfs-validator/gtfs-validator.jar" -o "gtfs-validator-cli.jar"
+      run: curl "https://lacmta.github.io/gtfs-validator/gtfs-validator-cli.jar" -o "gtfs-validator-cli.jar"
     - name: Validate GTFS
       run: |
         java -jar gtfs-validator-cli.jar -i gtfs_bus/gtfs_bus.zip -o gtfs_bus/output
