@@ -22,8 +22,9 @@ jobs:
       run: curl "https://lacmta.github.io/gtfs-validator/gtfs-validator-cli.jar" -o "gtfs-validator-cli.jar"
     - name: Validate GTFS
       run: |
-        java -jar gtfs-validator-cli.jar -i gtfs_bus/gtfs_bus.zip -o gtfs_bus/output
         cd gtfs_bus
+        java -jar ../gtfs-validator-cli.jar -i gtfs_bus.zip -o output
+        echo 'Validation Complete!'
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git add .      
