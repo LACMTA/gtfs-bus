@@ -1,0 +1,17 @@
+name: "Validate GTFS👀🚌"
+
+on:
+  push:
+    branches: [ main ]
+jobs:
+  validating-gtfs:
+    runs-on: ubuntu-18.04 # linux required if you want to use docker
+    container:
+          image: ghcr.io/mobilitydata/gtfs-validator:latest
+    steps:
+    - uses: actions/checkout@v2
+    # - name: Checkout the repo
+      # run: git clone 
+    - name: Validate GTFS
+      run: java -jar gtfs-validator-cli.jar -i /gtfs_bus.zip -o output
+    # Those steps are actions, which may run inside a container
