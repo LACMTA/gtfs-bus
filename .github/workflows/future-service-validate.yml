@@ -1,5 +1,5 @@
 name: "Update Future-Service and validate GTFS👀🚌"
-
+run-name: Update Future-Service and validate GTFS👀🚌
 on:
   push:
     branches: [ main ]
