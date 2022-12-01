@@ -1,31 +1,31 @@
-name: "🛸Future-Service-Validate GTFS👀🚌"
+# name: "🛸Future-Service-Validate GTFS👀🚌"
 
-on:
-  push:
-    branches: [ main ]
-jobs:
-  validating-gtfs:
-    runs-on: ubuntu-18.04 # linux required if you want to use docker
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 15
-      uses: actions/setup-java@v2
-      with:
-        java-version: '15'
-        distribution: 'adopt'
-    - name: Clone GuillaumeFalourd/poc-github-actions PUBLIC repository
-      uses: GuillaumeFalourd/clone-github-repo-action@v2
-      with:
-        owner: 'lacmta'
-        repository: 'gtfs_bus'
-    - name: Validate GTFS
-      if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
-      run: |
-        cd gtfs_bus
-        java -jar tools/gtfs-validator-cli.jar -i gtfs_bus.zip -o validation
-        echo 'Validation Complete!'
-        git config --global user.name 'GitHub Action'
-        git config --global user.email 'action@github.com'
-        git add .      
-        git commit -am '[Auto] Output Validated GTFS Results'
-        git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
+# on:
+#   push:
+#     branches: [ main ]
+# jobs:
+#   validating-gtfs:
+#     runs-on: ubuntu-18.04 # linux required if you want to use docker
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up JDK 15
+#       uses: actions/setup-java@v2
+#       with:
+#         java-version: '15'
+#         distribution: 'adopt'
+#     - name: Clone GuillaumeFalourd/poc-github-actions PUBLIC repository
+#       uses: GuillaumeFalourd/clone-github-repo-action@v2
+#       with:
+#         owner: 'lacmta'
+#         repository: 'gtfs_bus'
+#     - name: Validate GTFS
+#       if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
+#       run: |
+#         cd gtfs_bus
+#         java -jar tools/gtfs-validator-cli.jar -i gtfs_bus.zip -o validation
+#         echo 'Validation Complete!'
+#         git config --global user.name 'GitHub Action'
+#         git config --global user.email 'action@github.com'
+#         git add .      
+#         git commit -am '[Auto] Output Validated GTFS Results'
+#         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
