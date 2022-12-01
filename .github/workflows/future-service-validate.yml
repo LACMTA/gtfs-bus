@@ -9,7 +9,9 @@ jobs:
   validating-gtfs-and-commit-to-gitlab:
     runs-on: ubuntu-18.04 # linux required if you want to use docker
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+        fetch-depth: 0
+        lfs: true
     - name: Set up JDK 15
       uses: actions/setup-java@v2
       with:
