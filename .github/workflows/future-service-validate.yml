@@ -5,6 +5,8 @@ on:
     branches: [ main ]
     paths:
       - future-service/**.zip
+  workflow_dispatch:
+   
 jobs:
   validating-gtfs-and-commit-to-gitlab:
     runs-on: ubuntu-18.04 # linux required if you want to use docker
