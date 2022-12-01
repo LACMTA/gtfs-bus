@@ -2,7 +2,7 @@ name: "Update Future-Service and validate GTFS👀🚌"
 
 on:
   push:
-    # branches: [ future-service ]
+    branches: [ main ]
     paths:
       - future-service/**.zip
 jobs:
