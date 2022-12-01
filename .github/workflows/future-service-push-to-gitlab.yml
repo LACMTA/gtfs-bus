@@ -1,0 +1,27 @@
+name: "🧪Update GitLab's Future-Service GTFS🚌"
+run-name: 🧪Update GitLab's Future-Service GTFS🚌
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - future-service/**.zip
+  workflow_dispatch:
+
+jobs:
+  validating-gtfs-and-commit-to-gitlab:
+    runs-on: ubuntu-18.04 # linux required if you want to use docker
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        lfs: true
+
+    - name: Push future service to Gitlab
+      run: |
+        echo Starting to push repo to gitlab
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git remote set-url origin "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        git push origin future-service
+      env: 
+        token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}

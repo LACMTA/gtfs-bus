@@ -25,17 +25,6 @@ jobs:
     #   with:
     #     owner: 'lacmta'
     #     repository: 'gtfs_bus'
-    - name: Validate GTFS
-      if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
-      run: |
-        ls
-        java -jar tools/gtfs-validator.jar -i future-service/gtfs_bus.zip -o future-service/validation
-        echo 'Validation Complete!'
-        git config --global user.name 'GitHub Action'
-        git config --global user.email 'action@github.com'
-        git add .
-        git commit -am '[Auto] Output Validated GTFS Results'
-        git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
     - name: Extract, repackage, zip files
       if: ${{!contains(github.event.head_commit.message, '[Auto] Extracted Zip files')}}
       run: |
@@ -45,13 +34,17 @@ jobs:
         git add .
         git commit -am '[Auto] Output Validated GTFS Results'
         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
-    - name: Push future service to Gitlab
+
+    - name: Validate GTFS
+      if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
       run: |
-        echo Starting to push repo to gitlab
+        ls
+        java -jar ../tools/gtfs-validator.jar -i future-service/gtfs_bus.zip -o future-service/validation
+        echo 'Validation Complete!'
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
-        git remote set-url origin "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
-        git push origin future-service
-      env: 
-        token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}
+        git add .
+        git commit -am '[Auto] Output Validated GTFS Results'
+        git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
+
     
