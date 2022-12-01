@@ -1,0 +1,52 @@
+name: "Update Future-Service and validate GTFS👀🚌"
+
+on:
+  push:
+    # branches: [ future-service ]
+    paths:
+      - future-service/**.zip
+jobs:
+  validating-gtfs-and-commit-to-gitlab:
+    runs-on: ubuntu-18.04 # linux required if you want to use docker
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 15
+      uses: actions/setup-java@v2
+      with:
+        java-version: '15'
+        distribution: 'adopt'
+    # - name: Clone GuillaumeFalourd/poc-github-actions PUBLIC repository
+    #   uses: GuillaumeFalourd/clone-github-repo-action@v2
+    #   with:
+    #     owner: 'lacmta'
+    #     repository: 'gtfs_bus'
+    - name: Validate GTFS
+      if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
+      run: |
+        cd future-service
+        java -jar tools/gtfs-validator-cli.jar -i gtfs_bus.zip -o validation
+        echo 'Validation Complete!'
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add .
+        git commit -am '[Auto] Output Validated GTFS Results'
+        git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
+    - name: Extract, repackage, zip files
+      if: ${{!contains(github.event.head_commit.message, '[Auto] Extracted Zip files')}}
+      run: |
+        cd future-service/updates;unzip !(*gtfs_bus*).zip; zip -ruv ../gtfs_bus.zip *.txt; rm !(*feed_info*).txt;cd ..;unzip gtfs_bus.zip
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add .
+        git commit -am '[Auto] Output Validated GTFS Results'
+        git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
+    - name: Push future service to Gitlab
+      run: |
+        echo Starting to push repo to gitlab
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git remote set-url origin "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        git push origin future-service
+      env: 
+        token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}
+    
