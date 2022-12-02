@@ -38,7 +38,7 @@ jobs:
         git commit -am '[Auto] Output Validated GTFS Results'
         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
     - name: Set up JDK 15
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: '15'
         distribution: 'adopt'
@@ -46,7 +46,7 @@ jobs:
       if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
       run: |
         cd tools
-        java -jar gtfs-validator.jar -i ../future-service/gtfs_bus.zip -o ../future-service/validation
+        java -jar gtfs-validator-4.0.0-cli -i ../future-service/gtfs_bus.zip -o ../future-service/validation
         echo 'Validation Complete!'
         git pull
         git config --global user.name 'GitHub Action'
