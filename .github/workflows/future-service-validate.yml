@@ -15,7 +15,9 @@ jobs:
       with:
         fetch-depth: 0
         lfs: true
-
+    - name: Get Current Date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     # - name: Clone GuillaumeFalourd/poc-github-actions PUBLIC repository
     #   uses: GuillaumeFalourd/clone-github-repo-action@v2
     #   with:
@@ -25,6 +27,7 @@ jobs:
       if: ${{!contains(github.event.head_commit.message, '[Auto] Extracted Zip files')}}
       run: |
         shopt -s extglob
+        echo ${{ github.event.head_commit.message }} >> readme.md
         cd future-service/updates
         unzip -o !(*gtfs_bus*).zip
         zip -ruv gtfs_bus.zip *.txt
@@ -37,7 +40,7 @@ jobs:
         git config --global user.email 'action@github.com'
         git pull
         git add .
-        git commit -am '[Auto] Output Validated GTFS Results'
+        git commit -am '[Auto] Update and validated GTFS files - ${{ steps.date.outputs.date }}'
         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
     - name: Set up JDK 15
       uses: actions/setup-java@v3

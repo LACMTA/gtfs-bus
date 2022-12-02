@@ -30,7 +30,7 @@ jobs:
         git config lfs.https://gitlab.com/LACMTA/gtfs-bus-dev.git/info/lfs.locksverify true
         git remote add gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
         git add future-service
-        git commit -am "🧪[Auto] - ${{ steps.date.outputs.date }}"
+        git commit -am "🧪[Auto] - Updated on ${{ steps.date.outputs.date }}"
         git pull
         git push gitlab main
       env: 
