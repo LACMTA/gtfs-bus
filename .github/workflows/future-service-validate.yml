@@ -30,7 +30,7 @@ jobs:
         zip -ruv ../gtfs_bus.zip *.txt
         rm !(*feed_info*).txt
         cd ..
-        unzip gtfs_bus.zip
+        unzip -o gtfs_bus.zip
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git add .
