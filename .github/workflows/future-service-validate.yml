@@ -44,7 +44,6 @@ jobs:
     - name: Validate GTFS
       if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
       run: |
-        cd ..
         cd tools
         java -jar gtfs-validator.jar -i ../future-service/gtfs_bus.zip -o ../future-service/validation
         echo 'Validation Complete!'
