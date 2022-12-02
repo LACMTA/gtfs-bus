@@ -1,5 +1,5 @@
-name: "Update Future-Service and validate GTFS👀🚌"
-run-name: Update Future-Service and validate GTFS👀🚌
+name: "⏲Update Future-Service and validate GTFS👀🚌"
+run-name: ⏲Update Future-Service and validate GTFS👀🚌
 on:
   push:
     branches: [ main ]
@@ -44,8 +44,9 @@ jobs:
     - name: Validate GTFS
       if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
       run: |
-        ls
-        java -jar ../tools/gtfs-validator.jar -i future-service/gtfs_bus.zip -o future-service/validation
+        cd ..
+        cd tools
+        java -jar gtfs-validator.jar -i ../future-service/gtfs_bus.zip -o ../future-service/validation
         echo 'Validation Complete!'
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
