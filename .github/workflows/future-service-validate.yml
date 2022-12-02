@@ -29,6 +29,7 @@ jobs:
         unzip -o !(*gtfs_bus*).zip
         zip -ruv ../gtfs_bus.zip *.txt
         rm !(*feed_info*).txt
+        rm *.zip
         cd ..
         unzip -o gtfs_bus.zip
         git config --global user.name 'GitHub Action'
