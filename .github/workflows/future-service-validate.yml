@@ -27,7 +27,8 @@ jobs:
         shopt -s extglob
         cd future-service/updates
         unzip -o !(*gtfs_bus*).zip
-        zip -ruv ../gtfs_bus.zip *.txt
+        zip -ruv gtfs_bus.zip *.txt
+        mv gtfs_bus.zip ../
         rm !(*feed_info*).txt
         rm *.zip
         cd ..
