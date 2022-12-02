@@ -51,7 +51,7 @@ jobs:
         git pull
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
-        git add .
+        git add ../future-service/validation/
         git commit -am '[Auto] Output Validated GTFS Results'
         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
 
