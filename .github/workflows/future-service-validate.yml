@@ -33,6 +33,7 @@ jobs:
         unzip -o gtfs_bus.zip
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
+        git pull
         git add .
         git commit -am '[Auto] Output Validated GTFS Results'
         git push https://${{secrets.METRO_GITHUB_TOKEN}}@github.com/lacmta/gtfs_bus.git
@@ -47,6 +48,7 @@ jobs:
         cd tools
         java -jar gtfs-validator.jar -i ../future-service/gtfs_bus.zip -o ../future-service/validation
         echo 'Validation Complete!'
+        git pull
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git add .
