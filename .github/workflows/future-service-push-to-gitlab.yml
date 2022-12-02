@@ -19,11 +19,13 @@ jobs:
     - name: Push future service to Gitlab
       run: |
         echo Starting to push repo to gitlab
+        git pull
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git config pull.rebase true
         git lfs fetch --all
         git remote add gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        git add future-service
         git pull
         git push gitlab main
       env: 
