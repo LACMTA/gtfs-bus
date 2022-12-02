@@ -9,6 +9,7 @@ on:
 
 jobs:
   validating-gtfs-and-commit-to-gitlab:
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v3
       with:
