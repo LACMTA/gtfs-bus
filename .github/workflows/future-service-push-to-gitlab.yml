@@ -22,6 +22,6 @@ jobs:
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git remote set-url origin "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
-        git push origin future-service
+        git push origin main
       env: 
         token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}
