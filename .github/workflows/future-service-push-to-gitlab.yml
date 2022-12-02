@@ -9,8 +9,11 @@ on:
 
 jobs:
   validating-gtfs-and-commit-to-gitlab:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
+    - name: Get Current Date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -27,6 +30,7 @@ jobs:
         git config lfs.https://gitlab.com/LACMTA/gtfs-bus-dev.git/info/lfs.locksverify true
         git remote add gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
         git add future-service
+        git commit -am "🧪[Auto] - ${{ steps.date.outputs.date }}"
         git pull
         git push gitlab main
       env: 
