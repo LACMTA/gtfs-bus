@@ -46,7 +46,7 @@ jobs:
       if: ${{!contains(github.event.head_commit.message, '[Auto] Output Validated GTFS Results')}}
       run: |
         cd tools
-        java -jar gtfs-validator-4.0.0-cli -i ../future-service/gtfs_bus.zip -o ../future-service/validation
+        java -jar gtfs-validator-4.0.0-cli.jar -i ../future-service/gtfs_bus.zip -o ../future-service/validation
         echo 'Validation Complete!'
         git pull
         git config --global user.name 'GitHub Action'
