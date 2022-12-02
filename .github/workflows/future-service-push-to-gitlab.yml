@@ -9,7 +9,6 @@ on:
 
 jobs:
   validating-gtfs-and-commit-to-gitlab:
-    runs-on: ubuntu-18.04 # linux required if you want to use docker
     steps:
     - uses: actions/checkout@v3
       with:
@@ -22,8 +21,8 @@ jobs:
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
         git config pull.rebase true
-        git remote set-url origin "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        git remote set-url gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
         git pull
-        git push origin main
+        git push gitlab main
       env: 
         token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}
