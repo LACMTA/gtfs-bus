@@ -24,6 +24,7 @@ jobs:
         git config --global user.email 'action@github.com'
         git config pull.rebase true
         git lfs fetch --all
+        git config lfs.https://gitlab.com/LACMTA/gtfs-bus-dev.git/info/lfs.locksverify true
         git remote add gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
         git add future-service
         git pull
