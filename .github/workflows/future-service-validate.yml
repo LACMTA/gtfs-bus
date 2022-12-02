@@ -24,6 +24,7 @@ jobs:
     - name: Extract, repackage, zip files
       if: ${{!contains(github.event.head_commit.message, '[Auto] Extracted Zip files')}}
       run: |
+        shopt -s extglob
         cd future-service/updates
         unzip !(*gtfs_bus*).zip
         zip -ruv ../gtfs_bus.zip *.txt
