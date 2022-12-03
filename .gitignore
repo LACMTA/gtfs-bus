@@ -6,3 +6,4 @@ venv
 .DS_Store
 scratch
 output
+temp

@@ -22,6 +22,11 @@ jobs:
     - name: Push future service to Gitlab
       run: |
         echo Starting to push repo to gitlab
+        mkdir temp
+        cd temp
+        git clone -b future-service "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        cd ..
+        cp -r future-service temp/gtfs-bus-dev/
         git pull
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
