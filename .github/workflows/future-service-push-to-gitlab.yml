@@ -26,7 +26,8 @@ jobs:
         git -C temp clone --depth 1 --branch future-service https://oauth2:${TOKEN}@gitlab.com/LACMTA/${GITLAB_REPO}.git
         echo ***** CLONED future-service BRANCH INTO temp/future-service *****
         git lfs fetch --all
-        cp future-service/. temp/${GITLAB_REPO}
+        cp future-service/*.txt temp/${GITLAB_REPO}
+        cp future-service/*.zip temp/${GITLAB_REPO}
         echo ***** COPIED future-service DIRECTORY CONTENT *****
         cd temp/${GITLAB_REPO}
         echo ***** FILES: *****
