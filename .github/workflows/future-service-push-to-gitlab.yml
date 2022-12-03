@@ -40,6 +40,7 @@ jobs:
         git add .
         git commit -am "🧪[Auto] - Updated on ${{ steps.date.outputs.date }}"
         echo ***** CHANGES COMMITTED *****
+        git lfs push --all
         git push origin future-service
         echo ***** PUSHED TO GITLAB *****
         echo :tada::tada::tada::tada::tada::tada::tada::tada::tada::tada:
