@@ -22,6 +22,7 @@ jobs:
     - name: Push future service to Gitlab
       run: |
         echo Starting to push repo to gitlab
+        mkdir -p temp/future-service
         git -C temp/future-service clone --depth 1 --branch future-service https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git
         cp -r future-service temp/future-service
         git pull
@@ -30,10 +31,10 @@ jobs:
         git config pull.rebase true
         git lfs fetch --all
         git config lfs.https://gitlab.com/LACMTA/gtfs-bus-dev.git/info/lfs.locksverify true
-        git remote add gitlab "https://oauth2:${token}@gitlab.com/LACMTA/gtfs-bus-dev.git"
+        cd temp
         git add future-service
         git commit -am "🧪[Auto] - Updated on ${{ steps.date.outputs.date }}"
         git pull
-        git push gitlab main
+        git push gitlab future-service
       env: 
         token: ${{ secrets.LACMTA_GITLAB_ACCESS_TOKEN }}
